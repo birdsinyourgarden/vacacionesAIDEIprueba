@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('image')->nullable();;
             $table->date('startingDate');
             $table->boolean('status');
-            $table->boolean('isAdmin');
+            $table->boolean('isAdmin')->default(false);
             $table->rememberToken();
             
             $table->timestamps();

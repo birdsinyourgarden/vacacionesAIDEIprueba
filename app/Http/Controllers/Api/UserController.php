@@ -14,10 +14,28 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::get();
+        /* $users = User::get();
 
-        return response()->json($users,200);
+        return response()->json($users,200); */
+
+        //si eres admin, llamas al index; si eres user, llamas al show
+        if (auth()->check() && auth()->user()->isAdmin) {
+            $users = User::get(); // obtener todos los usuarios
+            $isAdmin = true; // establecer la variable $isAdmin como verdadera
+        }
+
+        if (!isset($isAdmin)) {
+            $users = User::where('id', auth()->id())->get();
+            $isAdmin = false; // establecer la variable $isAdmin como falsa
+        }
+
+        return response()->json([
+            'users' => $users,
+            'isAdmin' => $isAdmin
+        ], 200);
+
     }
+        
 
     /**
      * Show the form for creating a new resource.
