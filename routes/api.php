@@ -19,4 +19,4 @@ use App\Http\Controllers\Api\UserController;
     return $request->user();
 }); */
 
-Route::get('/', [UserController::class, 'index'])->name('usersAPI');
+Route::get('/{isAdmin}', [UserController::class, 'index'])->name('usersAPI');
